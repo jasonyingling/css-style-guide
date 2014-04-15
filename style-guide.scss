@@ -1,0 +1,214 @@
+// CSS Style Guide
+
+/*-------------------------
+	1. 	File Structure
+	2. 	Coding Style
+	3. 	Nesting
+	4. 	Naming Conventions
+	5. 	Base Layout
+	6. 	Units
+	7. 	Buttons
+	8. 	Comments
+	9. 	Shame
+	10.	Resources
+ -------------------------- */
+
+
+/*-------------------------
+	1. File Structure
+ -------------------------- */
+
+/* Partials
+ * - Partials store global items such as variables, mixins, extends, grids, typography, etc
+ * - Add color variables to _colors.scss
+ * - Add base font-sizes for <p> and <h1> - <h6> tags to _typography.scss. If you need to specify a font-size to an heading tag use a class.
+ * - Global rules go in _base.scss
+ */
+ 
+/* Elements
+ * - Elements store .scss files for particular elements of the site. For example, _header.scss, _footer.scss, _page.scss
+ * - Break site up into as many small elements as makes sense
+ */
+ 
+/*-------------------------
+	2. Coding Style 
+ -------------------------- */
+
+// Use tabs to indent rules
+
+// Include 1 space after : in property declaration
+
+// Include 1 space before { in rule declarations
+
+.style_format {
+	border: 1px solid #ffffff;
+}
+
+// Use @extends first
+
+.style_format {
+	@extend %post;
+}
+
+// Use @includes except media queries next
+
+.style_format {
+	@extend %post;
+	@include span-columns(8);
+}
+
+// List regular styles next
+
+.style_format {
+	@extend %post;
+	@include span-columns(8);
+	background: $blue;
+}
+
+// List media queries next after a line-break
+
+.style_format {
+	@extend %post;
+	@include span-columns(8);
+	background: $blue;
+	
+	@include media($mobile) {
+		background: $white;
+	}
+}
+
+// Finally, list nested selectors last
+
+.style_format {
+	@extend %post;
+	@include span-columns(8);
+	background: $blue;
+	
+	@include media($mobile) {
+		background: $white;
+	}
+	
+	.nested_item {
+		color: $black;
+	}
+}
+
+/*-------------------------
+	3. Nesting
+ -------------------------- */
+ 
+// Do not nest deeper than 3-4 levels. If you are deeper than that your selector is too reliant on HTML structure (fragile), overly specific (too powerful), and not very reusable (not useful).
+
+// Try to keep nesting less than 50 lines.
+
+.content {
+	.content_copy {
+		a {
+			
+		}
+	}
+}
+
+/*-------------------------
+	4. Naming Conventions
+ -------------------------- */
+ 
+// Don't fear using classes. Rather than target .content > div target .content > .content_title
+
+// Keep classes "as short as possible but as long as necessary". (e.g. .content instead of .cntnt or .the-area-of-the-page-for-the-main-content.
+
+// Try to not over specify a class name. (e.g. .button_color instead of .button_blue) That way if we then decide to change the buttons to red in the future we don't have a class called .button_blue that turns the button red.
+
+// Avoid ids as much as possible. Only use ids on items that appear exactly once on a page. (e.g. header, footer, etc.)
+
+// Name elements with underscores instead of dashes. (e.g. .content_title, .content_copy)
+
+// Use dashes to specify an element modifier. (e.g. .content_title-alt, .content_copy-bg)
+
+// Use the prefix js- for items that will be targed with js. Never reference js- prefixed names in the css. This way if we ever need to add existing js functionality to a different item there are not styles tied to the class.
+
+// Use is- prefix for items that will be in the js and css
+
+<section class="container">
+
+	<article class="content">
+		<h2 class="content_title">Title</h2>
+		<div class="content_copy">
+			<p>Cursus Egestas Tellus Ullamcorper Ligula.</p>
+		</div>
+	</article>
+	
+	<article class="content">
+		<h2 class="content_title-alt">Title</h2>
+		<div class="content_copy-bg">
+			<p>Cursus Egestas Tellus Ullamcorper Ligula.</p>
+			<button class="js-content_button">Button</button>
+		</div>
+	</article>
+	
+</section>
+
+/*-------------------------
+	5. Base Layout
+ -------------------------- */
+ 
+// Wrap sections with the class .container. This rule includes outer-container and clearfix.
+
+<header>
+	<div class="container">
+		<navigation></navigation>
+	</div>
+</header>
+
+<section>
+	<div class="container">
+		<article></article>
+	</div>
+</section>
+
+/*-------------------------
+	6. Units
+ -------------------------- */
+ 
+// Use px for font-size.
+// Use unit-less line-height. It does not inherit a percentage value of its parent element, but instead is based on a multiplier of the font-size.
+ 
+/*-------------------------
+	7. Buttons
+ -------------------------- */
+ 
+// Don't use href="#". Use a <button> element instead, or use a fallback url. This way if a user doesn't have javascript enabled they won't jump to the top of the page.
+
+<a href="/fallback-page" class="js-button">Button</a>
+<a class="js-button">Button</a>
+
+// NOT <a href="#" class="js-button">Button</a>
+
+/*-------------------------
+	8. Comments
+ -------------------------- */
+
+/* This comment is
+ * several lines long.
+ * since it uses the CSS comment syntax,
+ * it will appear in the CSS output. 
+ */
+ 
+// These comments are only one line long each.
+// They won't appear in the CSS output,
+// since they use the single-line comment syntax.
+
+// When the first letter of a comment is !, the comment will be interpolated and always rendered into css output even in compressed output modes. This is useful for adding Copyright notices to your generated CSS.
+
+/*-------------------------
+	9. Shame
+ -------------------------- */
+ 
+// Include a _shame.scss as the last include in main.scss. This file will be used for quick fixes and items that will be worked into the SCSS correctly when we have time. Avoid using at all costs.
+
+/*-------------------------
+	10. Resources
+ -------------------------- */
+// This CSS style guide is based off the GitHub Style Guide (https://github.com/styleguide/css) CSS Tricks SASS Style Guide (http://css-tricks.com/sass-style-guide/) and "Modern CSS Architecture and Front-End Development" by Harry Roberts in "The Smashing Book #4: New Perspectives on Web Design". (http://www.smashingmagazine.com/ebooks/)
+
+// This is a living document.
